@@ -18,14 +18,14 @@ return;
 while (o < size)
 {
 j = size - o < 10 ? size - o : 10;
-intf("%08x: ", o);
+pintf("%08x: ", o);
 for (i = 0; i < 10; i++)
 {
 if (i < j)
 printf("%02x", *(b + o + i));
 else
 printf("  ");
-(i % 2)
+if (i % 2)
 {
 printf(" ");
 }
