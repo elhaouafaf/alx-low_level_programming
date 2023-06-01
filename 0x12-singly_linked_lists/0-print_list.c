@@ -17,3 +17,5 @@ printf("[%u] %s\n", h->len, h->str);
 h = h->next;
 s++;
 }
+return (s);
+}
