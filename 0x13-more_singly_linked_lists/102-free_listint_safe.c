@@ -1,69 +1,34 @@
 #include "lists.h"
-#include <stdio.h>
-size_t looped_listint_len(const listint_t *head);
-size_t print_listint_safe(const listint_t *head);
 /**
- * looped_listint_len - Counter of l3ibat
- * @head:pointer 1rst
- * Return: no loop 0
+ * free_listint_safe - free list
+ * @h: pointer 1rst
+ * Return: free list
  */
-size_t looped_listint_len(const listint_t *head)
+size_t free_listint_safe(listint_t **h)
 {
-const listint_t *afaf, *elh;
-size_t nd = 1;
-if (head == NULL || head->next == NULL)
+size_t lnf = 0;
+int dif;
+listint_t *tp;
+if (!h || !*h)
 return (0);
-afaf = head->next;
-elh = (head->next)->next;
-while (elh)
+while (*h)
 {
-if (afaf == elh)
+dif = *h - (*h)->next;
+if (dif > 0)
 {
-afaf = head;
-while (afaf != elh)
-{
-nd++;
-afaf = afaf->next;
-elh = elh->next;
-}
-afaf = afaf->next;
-while (afaf != elh)
-{
-nd++;
-afaf = afaf->next;
-}
-return (nd);
-}
-afaf = afaf->next;
-elh = (elh->next)->next;
-}
-return (0);
-}
-/**
- * print_listint_safe - Printer
- * @head: pointer 1rst
- * Return:node numbb
- */
-size_t print_listint_safe(const listint_t *head)
-{
-size_t nd, index = 0;
-nd = looped_listint_len(head);
-if (nd == 0)
-{
-for (; head != NULL; nd++)
-{
-printf("[%p] %d\n", (void *)head, head->n);
-head = head->next;
-}
+tp = (*h)->next;
+free(*h);
+*h = tp;
+lnf++;
 }
 else
 {
-for (index = 0; index < nd; index++)
-{
-printf("[%p] %d\n", (void *)head, head->n);
-head = head->next;
+free(*h);
+*h = NULL;
+lnf++;
+break;
 }
-printf("-> [%p] %d\n", (void *)head, head->n);
 }
-return (nd);
+*h = NULL;
+return (lnf);
 }
